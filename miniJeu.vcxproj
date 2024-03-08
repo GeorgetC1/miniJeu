@@ -140,12 +140,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Arme.cpp" />
+    <ClCompile Include="Chevalier.cpp" />
+    <ClCompile Include="Combat.cpp" />
+    <ClCompile Include="Joueur.cpp" />
+    <ClCompile Include="menuJeu.cpp" />
     <ClCompile Include="miniJeu.cpp" />
     <ClCompile Include="Orc.cpp" />
     <ClCompile Include="Personnage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arme.h" />
+    <ClInclude Include="Chevalier.h" />
+    <ClInclude Include="Combat.h" />
+    <ClInclude Include="Joueur.h" />
+    <ClInclude Include="menuJeu.h" />
     <ClInclude Include="Orc.h" />
     <ClInclude Include="Personnage.h" />
   </ItemGroup>
