@@ -42,7 +42,7 @@ void menuJeu(int nbrJoueur)
 	cout << "CHARGE >----| inflique le double des dégats pour 1 tour (chance reussite: 60%) |  3 tours" << endl << endl;
 
 	Joueur joueur1 = Joueur(pseudoJoueur1);
-	Joueur joueur2 = Joueur(pseudoJoueur2);
+	Joueur joueur2 = Joueur(pseudoJoueur2, (nbrJoueur == 1));
 
 	joueur1.choisirPersonnage();
 	joueur2.choisirPersonnage();
@@ -58,6 +58,7 @@ void menuJeu(int nbrJoueur)
 		joueur1.jouerTour(joueur2);
 		joueur2.jouerTour(joueur1);
 
+		system("PAUSE");
 		cout << endl;
 
 		// combat
@@ -65,12 +66,14 @@ void menuJeu(int nbrJoueur)
 		joueur2.attaque(joueur1);
 
 		cout << endl;
+		system("PAUSE");
 
 		// combat
 		joueur1.afficheEtat();
 		joueur2.afficheEtat();
 
 		cout << endl;
+		system("PAUSE");
 
 		// fin de tour 
 		joueur1.majPerso();

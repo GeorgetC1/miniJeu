@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-    srand(static_cast<unsigned>(time(0)));// démarrage nbr aléatoire
+    srand(static_cast<unsigned>(time(nullptr)));// démarrage nbr aléatoire
 
     bool quitter = false; 
     int choix = 0;

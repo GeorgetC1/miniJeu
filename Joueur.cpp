@@ -1,6 +1,6 @@
 #include "Joueur.h"
 
-Joueur::Joueur(std::string pseudo) : m_pseudo(pseudo), m_personnage(nullptr)
+Joueur::Joueur(std::string pseudo, bool estOrdinateur) : m_pseudo(pseudo), m_personnage(nullptr), m_estOrdinateur(estOrdinateur)
 {
 }
 
@@ -11,15 +11,24 @@ Joueur::~Joueur()
 
 void Joueur::choisirPersonnage()
 {
-    std::cout << std::endl << m_pseudo << ", choisissez votre personnage :\n1. Orc\n2. Chevalier" << std::endl;
-    int choixPersonnage;
+    int choixPersonnage = 0;
+    if (m_estOrdinateur == true)
+    {
+        std::cout << std::endl << "Qui souhaitez-vous affronter ?\n1.Orc\n2.Chevalier" << std::endl;
+    }
+    else
+    {
+        std::cout << std::endl << m_pseudo << ", choisissez votre personnage :\n1. Orc\n2. Chevalier" << std::endl;        
+    }
+
     std::cin >> choixPersonnage;
 
-    if (choixPersonnage == 1) {
+    if (choixPersonnage == 1)
         m_personnage = new Orc(m_pseudo + " ( Orc )");
-    }
-    else {
+    else
         m_personnage = new Chevalier(m_pseudo + " ( Chevalier )");
+
+        std::cout << std::endl << m_personnage->getNom() << " choisi." << std::endl;
     }
 }
 
@@ -30,9 +39,21 @@ void Joueur::jouerTour(Joueur& adversaire)
 
         if (this->peutJouer())
         {
-            std::cout << m_pseudo << ", voulez-vous utiliser votre capacite speciale ? (1. Oui / 2. Non)" << std::endl;
             int choixUtiliserCapacite;
-            std::cin >> choixUtiliserCapacite;
+            if (m_estOrdinateur) // l'ordinateur choisi de façon aléatoire
+            {
+                choixUtiliserCapacite = (rand() % 2) + 1;
+                if(choixUtiliserCapacite == 1)
+                    std::cout << m_pseudo << " a choisi d'utiliser sa capacite speciale." << std::endl;
+                else
+                    std::cout << m_pseudo << " a choisi de ne pas utiliser sa capacite speciale." << std::endl;
+            }
+            else
+            {
+                std::cout << m_pseudo << ", voulez-vous utiliser votre capacite speciale ? (1. Oui / 2. Non)" << std::endl;
+
+                std::cin >> choixUtiliserCapacite;
+            }
 
             if (choixUtiliserCapacite == 1) {
                 m_personnage->capaciteSpeciale(*adversaire.m_personnage);

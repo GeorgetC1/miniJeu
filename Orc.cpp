@@ -15,9 +15,9 @@ void Orc::capaciteSpeciale(Personnage& cible)
         int chanceReussite = rand() % 100;
 
         if (chanceReussite < 20) {  // La capacité réussit avec 20% de chance
-            std::cout << "La capacite STUN a touché son adversaire." << std::endl;
+            std::cout << "La capacite STUN a touche son adversaire." << std::endl;
             cible.changerEtat(Etat::ETOURDI);
-            std::cout << cible.getNom() << " est étourdi et ne plus attaquer pendant ce tour." << std::endl;
+            std::cout << cible.getNom() << " est etourdi et ne plus attaquer pendant ce tour." << std::endl;
         }
         else {
             std::cout << "Oh non ! La capacite STUN a rate." << std::endl;

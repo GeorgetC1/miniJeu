@@ -7,7 +7,7 @@
 class Joueur
 {
 public:
-    Joueur(std::string pseudo);
+    Joueur(std::string pseudo, bool estOrdinateur = false);
     ~Joueur();
 
     // init
@@ -28,5 +28,6 @@ public:
 private:
     std::string m_pseudo;
     Personnage* m_personnage;
+    bool m_estOrdinateur;
 };
 
