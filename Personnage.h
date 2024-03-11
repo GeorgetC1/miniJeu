@@ -14,7 +14,7 @@
 #include "Arme.h"
 
 // Enum pour représenter les états possibles du personnage
-enum Etat {
+enum class Etat {
 	NORMAL,
 	ETOURDI,
 	EMPOISONNE,
@@ -31,17 +31,27 @@ public :
 				int degats,
 				Arme arme,
 				std::string capaciteSpe);
+	~Personnage() {}
 
 	// etat et stats
 	void changerEtat(Etat newEtat);
-	int getTpsRecup();
+
+	// getteur
+	const std::string getNom();
+	const int getTpsRecup();
+	const int getPV();
+	const int getBouclier();
+	const Etat getEtat();
+
+	// fonction qui gère ce qui doit être fait à chaque tour (compteur ...)
+	void passeUnTour();
 
 	// Combat
 	void attaquer(Personnage& cible); 
 	void recevoirDegats(int degats);
 
 	// à définir dans chaque classe enfant
-	virtual void capaciteSpeciale() = 0;
+	virtual void capaciteSpeciale(Personnage& cible) = 0;
 
 private :
 
@@ -51,10 +61,11 @@ private :
 	int m_degats; 
 	Arme m_arme;
 	Etat m_etat;
-	std::string m_capaciteSpeciale;
+	std::string m_capaciteSpeciale; // nom de la capacité spéciale
 
 protected :
 	int m_tpsRecuperation; // tour de récupération de la capacité spéciale
+	int m_multiplicateur;
 
 };
 

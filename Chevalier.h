@@ -1,14 +1,12 @@
 #pragma once
 #include "Personnage.h"
 
-class Orc : public Personnage
+class Chevalier : public Personnage
 {
-public:
-	Orc(std::string nom);
+public : 
+	Chevalier(std::string nom);
 
 	void capaciteSpeciale(Personnage& cible);
-
-private:
 
 };
 
