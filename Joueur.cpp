@@ -29,7 +29,6 @@ void Joueur::choisirPersonnage()
         m_personnage = new Chevalier(m_pseudo + " ( Chevalier )");
 
         std::cout << std::endl << m_personnage->getNom() << " choisi." << std::endl;
-    }
 }
 
 void Joueur::jouerTour(Joueur& adversaire)
