@@ -11,7 +11,7 @@
 
 #include <string>
 #include <iostream>
-#include "Arme.h"
+#include "..\Items\Arme.h"
 
 // Enum pour représenter les états possibles du personnage
 enum class Etat {

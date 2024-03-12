@@ -31,6 +31,11 @@ void Joueur::choisirPersonnage()
         std::cout << std::endl << m_personnage->getNom() << " choisi." << std::endl;
 }
 
+const std::string Joueur::getPseudo()
+{
+    return m_pseudo;
+}
+
 void Joueur::jouerTour(Joueur& adversaire)
 {
     std::cout << std::endl;

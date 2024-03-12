@@ -139,23 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Arme.cpp" />
-    <ClCompile Include="Chevalier.cpp" />
-    <ClCompile Include="Combat.cpp" />
-    <ClCompile Include="Joueur.cpp" />
-    <ClCompile Include="menuJeu.cpp" />
+    <ClCompile Include="Items\Arme.cpp" />
+    <ClCompile Include="Personnages\Chevalier.cpp" />
+    <ClCompile Include="Jeu\Joueur.cpp" />
+    <ClCompile Include="Jeu\Jeu.cpp" />
     <ClCompile Include="miniJeu.cpp" />
-    <ClCompile Include="Orc.cpp" />
-    <ClCompile Include="Personnage.cpp" />
+    <ClCompile Include="Personnages\Orc.cpp" />
+    <ClCompile Include="Personnages\Personnage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arme.h" />
-    <ClInclude Include="Chevalier.h" />
-    <ClInclude Include="Combat.h" />
-    <ClInclude Include="Joueur.h" />
-    <ClInclude Include="menuJeu.h" />
-    <ClInclude Include="Orc.h" />
-    <ClInclude Include="Personnage.h" />
+    <ClInclude Include="Items\Arme.h" />
+    <ClInclude Include="Personnages\Chevalier.h" />
+    <ClInclude Include="Jeu\Joueur.h" />
+    <ClInclude Include="Jeu\Jeu.h" />
+    <ClInclude Include="Personnages\Orc.h" />
+    <ClInclude Include="Personnages\Personnage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
