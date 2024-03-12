@@ -2,7 +2,7 @@
 //
 
 #include <iostream>
-#include "menuJeu.h"
+#include "Jeu/Jeu.h"
 using namespace std;
 
 int main()
@@ -28,10 +28,8 @@ int main()
         switch (choix)
         {
             case 1 :
-                menuJeu(1);
-                break;
             case 2 :
-                menuJeu(2);
+                jouer(choix);
                 break;
             case 3 :
                 quitter = true;

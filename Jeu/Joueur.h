@@ -1,8 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include "Orc.h"
-#include "Chevalier.h"
+#include "..\Personnages\Orc.h"
+#include "..\Personnages\Chevalier.h"
 
 class Joueur
 {
@@ -12,6 +12,9 @@ public:
 
     // init
     void choisirPersonnage();
+
+    //getteur
+    const std::string getPseudo();
 
     // combat
     void jouerTour(Joueur& adversaire);
