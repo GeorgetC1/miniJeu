@@ -23,12 +23,20 @@ void Joueur::choisirPersonnage()
 
     std::cin >> choixPersonnage;
 
-    if (choixPersonnage == 1)
-        m_personnage = new Orc(m_pseudo + " ( Orc )");
-    else
-        m_personnage = new Chevalier(m_pseudo + " ( Chevalier )");
-
-        std::cout << std::endl << m_personnage->getNom() << " choisi." << std::endl;
+    switch (choixPersonnage)
+    {
+        case 1 :
+            m_personnage = new Orc(m_pseudo + " ( Orc )");
+            std::cout << std::endl << m_personnage->getNom() << " choisi." << std::endl;
+            break;
+        case 2 :
+            m_personnage = new Chevalier(m_pseudo + " ( Chevalier )");
+            std::cout << std::endl << m_personnage->getNom() << " choisi." << std::endl;
+            break;
+        default :
+            std::cout << std::endl << "Choix non disponible!" << std::endl;
+            this->choisirPersonnage();
+    }   
 }
 
 const std::string Joueur::getPseudo()
