@@ -42,6 +42,7 @@ public :
 	const int getPV();
 	const int getBouclier();
 	const Etat getEtat();
+	const std::string getNomCapacite();
 
 	// fonction qui gère ce qui doit être fait à chaque tour (compteur ...)
 	void passeUnTour();
@@ -50,8 +51,9 @@ public :
 	void attaquer(Personnage& cible); 
 	void recevoirDegats(int degats);
 
-	// à définir dans chaque classe enfant
-	virtual void capaciteSpeciale(Personnage& cible) = 0;
+	// capacite speciale
+	virtual void capaciteSpeciale(Personnage& cible);
+	virtual void appliquerCapacite(Personnage& cible) = 0;// à définir dans chaque classe enfant
 
 private :
 
@@ -62,6 +64,8 @@ private :
 	Arme m_arme;
 	Etat m_etat;
 	std::string m_capaciteSpeciale; // nom de la capacité spéciale
+	int m_pourcentageReussite;
+	int m_paramTpsRecup;
 
 protected :
 	int m_tpsRecuperation; // tour de récupération de la capacité spéciale

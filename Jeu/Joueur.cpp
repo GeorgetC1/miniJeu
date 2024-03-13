@@ -26,11 +26,11 @@ void Joueur::choisirPersonnage()
     switch (choixPersonnage)
     {
         case 1 :
-            m_personnage = new Orc(m_pseudo + " ( Orc )");
+            m_personnage = new Orc(m_pseudo);
             std::cout << std::endl << m_personnage->getNom() << " choisi." << std::endl;
             break;
         case 2 :
-            m_personnage = new Chevalier(m_pseudo + " ( Chevalier )");
+            m_personnage = new Chevalier(m_pseudo);
             std::cout << std::endl << m_personnage->getNom() << " choisi." << std::endl;
             break;
         default :

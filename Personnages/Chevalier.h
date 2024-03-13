@@ -6,7 +6,7 @@ class Chevalier : public Personnage
 public : 
 	Chevalier(std::string nom);
 
-	void capaciteSpeciale(Personnage& cible);
+	void appliquerCapacite(Personnage& cible);
 
 };
 

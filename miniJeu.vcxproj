@@ -155,6 +155,10 @@
     <ClInclude Include="Personnages\Orc.h" />
     <ClInclude Include="Personnages\Personnage.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Config\paramArmes.txt" />
+    <Text Include="Config\paramPersos.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

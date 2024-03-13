@@ -35,6 +35,11 @@ const Etat Personnage::getEtat()
     return m_etat;
 }
 
+const std::string Personnage::getNomCapacite()
+{
+    return m_capaciteSpeciale;
+}
+
 void Personnage::passeUnTour()
 {
     if(m_tpsRecuperation > 0)
@@ -87,5 +92,24 @@ void Personnage::recevoirDegats(int degats)
             m_pv = 0;
         }
     }
+}
 
+void Personnage::capaciteSpeciale(Personnage& cible)
+{
+    // Vérifier si la capacité spéciale peut être utilisée
+    if (m_tpsRecuperation > 0) {
+        std::cout << "La capacite " << m_capaciteSpeciale << " est en attente. Attendez encore " << m_tpsRecuperation << " tours." << std::endl;
+    }
+    else {
+        // Générer un nombre aléatoire entre 0 et 99 (pourcentage)
+        int chanceReussite = rand() % 100;
+
+        if (chanceReussite < 60) {  // La capacité réussit avec 60% de chance
+            appliquerCapacite(cible);
+        }
+        else {
+            std::cout << "CATASTROPHE ! La capacite "<<m_capaciteSpeciale<<" a echoue." << std::endl;
+            m_tpsRecuperation = 3;
+        }
+    }
 }
