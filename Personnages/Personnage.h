@@ -12,6 +12,9 @@
 #include <string>
 #include <iostream>
 #include "..\Items\Arme.h"
+#include "..\Parser\ConfigParser.h"
+
+using namespace std;
 
 // Enum pour représenter les états possibles du personnage
 enum class Etat {
@@ -25,23 +28,27 @@ class Personnage
 {
 
 public : 
-	Personnage(	std::string nom, 
+	Personnage(string nom, string typePerso, const ConfigParser& cfgPerso, const ConfigParser& cfgArmes);
+	Personnage(	string nom, 
 				int pv, 
 				int bouclier, 
 				int degats,
 				Arme arme,
-				std::string capaciteSpe);
+				string capaciteSpe, 
+				int pourcentageReussite, 
+				int paramTpsRecup);
 	~Personnage() {}
 
 	// etat et stats
 	void changerEtat(Etat newEtat);
 
 	// getteur
-	const std::string getNom();
+	const string getNom();
 	const int getTpsRecup();
 	const int getPV();
 	const int getBouclier();
 	const Etat getEtat();
+	const string getNomCapacite();
 
 	// fonction qui gère ce qui doit être fait à chaque tour (compteur ...)
 	void passeUnTour();
@@ -50,22 +57,25 @@ public :
 	void attaquer(Personnage& cible); 
 	void recevoirDegats(int degats);
 
-	// à définir dans chaque classe enfant
-	virtual void capaciteSpeciale(Personnage& cible) = 0;
+	// capacite speciale
+	virtual void capaciteSpeciale(Personnage& cible);
+	virtual void appliquerCapacite(Personnage& cible) = 0;// à définir dans chaque classe enfant
 
 private :
 
-	std::string m_nom; // désignation du personnage
+	string m_nom; // désignation du personnage
 	int m_pv; // points de vie
 	int m_bouclier; 
 	int m_degats; 
 	Arme m_arme;
 	Etat m_etat;
-	std::string m_capaciteSpeciale; // nom de la capacité spéciale
+	string m_capaciteSpeciale; // nom de la capacité spéciale
+	int m_pourcentageReussite; // chance de reussite fixe lié au personnage , défini par paramétrage
+	int m_paramTpsRecup; // nbr tour de récupération fixe défini par paramétrage
+	int m_tpsRecuperation; // tour de récupération de la capacité spéciale dynamique
 
-protected :
-	int m_tpsRecuperation; // tour de récupération de la capacité spéciale
-	int m_multiplicateur;
+protected :	
+	int m_multiplicateur; // multiplicateur de dégats: sert de buff temporaire pour les personnages
 
 };
 

@@ -1,12 +1,14 @@
 #include "Joueur.h"
 
-Joueur::Joueur(std::string pseudo, bool estOrdinateur) : m_pseudo(pseudo), m_personnage(nullptr), m_estOrdinateur(estOrdinateur)
+Joueur::Joueur(std::string pseudo, const ConfigParser& cfgPersos, const ConfigParser& cfgArmes, bool estOrdinateur) 
+    : m_pseudo(pseudo), m_personnage(nullptr), m_cfgPersos(cfgPersos), m_cfgArmes(cfgArmes), m_estOrdinateur(estOrdinateur)
 {
 }
 
 Joueur::~Joueur()
 {
     delete m_personnage;
+    m_personnage = nullptr;
 }
 
 void Joueur::choisirPersonnage()
@@ -26,11 +28,11 @@ void Joueur::choisirPersonnage()
     switch (choixPersonnage)
     {
         case 1 :
-            m_personnage = new Orc(m_pseudo + " ( Orc )");
+            m_personnage = new Orc(m_pseudo, m_cfgPersos, m_cfgArmes);
             std::cout << std::endl << m_personnage->getNom() << " choisi." << std::endl;
             break;
         case 2 :
-            m_personnage = new Chevalier(m_pseudo + " ( Chevalier )");
+            m_personnage = new Chevalier(m_pseudo, m_cfgPersos, m_cfgArmes);
             std::cout << std::endl << m_personnage->getNom() << " choisi." << std::endl;
             break;
         default :

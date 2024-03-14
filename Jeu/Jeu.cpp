@@ -2,16 +2,27 @@
 using namespace std;
 
 // fonction d'affichage des personnages et de leurs caractéristiques
-void afficherDetailPerso()
+void afficherDetailPerso(ConfigParser& prPersos, ConfigParser& prArmes)
 {
+
+	const unordered_map<string, unordered_map<string, string>> persoMap = prPersos.getMap();
 	cout << "Les personnages disponibles :" << endl;
-	cout << "STATS       |  PV   | BOUCLIER | DEGATS | CAPACITE  " << endl;
-	cout << "ORC  >------|  60   |     0    |    8   |   STUN    " << endl;
-	cout << "CHEVALIER >-|  20   |    50    |    5   |   CHARGE  " << endl;
-	cout << "----------------------------------------------------" << endl;
-	cout << "CapaciteSpe.|                         Description                              | COOLDOWN (si Echec)" << endl;
-	cout << "STUN   >----| etourdi l'ennemi pour 1 tour (chance reussite: 20%)              |  5 tours" << endl;
-	cout << "CHARGE >----| inflique le double des dégats pour 1 tour (chance reussite: 60%) |  3 tours" << endl << endl;
+	cout << "STATS" << endl;
+	for (const auto& pair : persoMap) {
+		const string& categorie = pair.first;
+		const unordered_map<string, string>& stats = pair.second;
+		cout << "[" << categorie << "]" << endl;
+		cout << "PV: " << stats.at("PV")<< endl;
+		cout << "BOUCLIER: " << stats.at("BOUCLIER") << endl;
+		cout << "DEGATS: " << stats.at("DEGATS") << endl;
+		cout << "ARME: " << stats.at("ARME") << endl;
+		cout << "DEGAT ARME: " << prArmes.getValeur(stats.at("ARME"),"DEGATS") << endl;
+		cout << "CAPACITE: " << stats.at("CAPACITE")<< endl;
+		cout << "->DESCR: " << stats.at("DESCRIPTION_CAPACITE") << endl;
+		cout << "->CHANCE DE REUSSITE: " << stats.at("POURCENTAGE_REUSSITE") << "%" << endl;
+		cout << "->TOUR DE RECUPERATION: " << stats.at("TPS_RECUPERATION") << endl;
+		cout << "----------------------------------------------------" << endl;
+	}
 }
 
 // Fonction du déroulement des combats
@@ -55,7 +66,7 @@ void combat(Joueur& joueur1, Joueur& joueur2)
 void afficherVictoire(Joueur& joueur1, Joueur& joueur2)
 {
 	system("CLS");
-	std::string gagnant;
+	string gagnant;
 	if (joueur1.estVivant())
 		gagnant = joueur1.getPseudo();
 	else if (joueur2.estVivant())
@@ -71,6 +82,13 @@ void afficherVictoire(Joueur& joueur1, Joueur& joueur2)
 // fonction principale contenant le corps du jeu
 void jouer(int nbrJoueur)
 {
+	// lecture des fichiers de paramétrages
+	ConfigParser paramArmes("paramArmes.txt");
+	paramArmes.parseFichier();
+	ConfigParser paramPersos("paramPersos.txt");
+	paramPersos.parseFichier();
+
+	// initialisation de var
 	string pseudoJoueur1, pseudoJoueur2;
 	int choixJ1 = 0, choixJ2 = 0;
 
@@ -102,11 +120,11 @@ void jouer(int nbrJoueur)
 	}
 
 	// Affichage des détails des personnages
-	afficherDetailPerso();
+	afficherDetailPerso(paramPersos, paramArmes);
 
 	// choix des joueurs
-	Joueur joueur1 = Joueur(pseudoJoueur1);
-	Joueur joueur2 = Joueur(pseudoJoueur2, (nbrJoueur == 1));
+	Joueur joueur1 = Joueur(pseudoJoueur1, paramPersos, paramArmes);
+	Joueur joueur2 = Joueur(pseudoJoueur2, paramPersos, paramArmes, (nbrJoueur == 1));
 
 	joueur1.choisirPersonnage();
 	joueur2.choisirPersonnage();

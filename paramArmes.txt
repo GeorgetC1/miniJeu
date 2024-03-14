@@ -1,0 +1,6 @@
+# Configuration des armes
+[HACHE]
+DEGATS=8
+
+[EPEE]
+DEGATS=5
