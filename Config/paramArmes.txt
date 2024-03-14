@@ -1,6 +1,0 @@
-# Configuration des armes
-[Hache]
-degats = 8
-
-[Épée]
-degats = 5

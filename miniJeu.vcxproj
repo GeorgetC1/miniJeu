@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Parser\ConfigParser.cpp" />
     <ClCompile Include="Items\Arme.cpp" />
     <ClCompile Include="Personnages\Chevalier.cpp" />
     <ClCompile Include="Jeu\Joueur.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Personnages\Personnage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Parser\ConfigParser.h" />
     <ClInclude Include="Items\Arme.h" />
     <ClInclude Include="Personnages\Chevalier.h" />
     <ClInclude Include="Jeu\Joueur.h" />
@@ -156,8 +158,8 @@
     <ClInclude Include="Personnages\Personnage.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Config\paramArmes.txt" />
-    <Text Include="Config\paramPersos.txt" />
+    <Text Include="paramArmes.txt" />
+    <Text Include="paramPersos.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

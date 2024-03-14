@@ -1,5 +1,9 @@
 #include "Arme.h"
 
+Arme::Arme() : m_nom("ARME_DEFAUT"), m_degats(0)
+{
+}
+
 Arme::Arme(std::string nom, int degats) : m_nom(nom), m_degats(degats)
 {
 }

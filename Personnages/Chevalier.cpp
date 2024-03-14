@@ -1,6 +1,7 @@
 #include "Chevalier.h"
 
-Chevalier::Chevalier(std::string nom) : Personnage(nom + " ( Chevalier )", 20, 50, 0, Arme("Épée", 5), "CHARGE")
+Chevalier::Chevalier(std::string nom, const ConfigParser& cfgPerso, const ConfigParser& cfgArmes) 
+    : Personnage(nom, "CHEVALIER", cfgPerso, cfgArmes)
 {
 }
 

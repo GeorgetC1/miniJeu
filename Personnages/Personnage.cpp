@@ -1,11 +1,39 @@
 #include "Personnage.h"
 
-Personnage::Personnage(std::string nom, int pv, int bouclier, int degats, Arme arme, std::string capaciteSpe)
-    : m_nom(nom), m_pv(pv), m_bouclier(bouclier), m_degats(degats), m_arme(arme), m_etat(Etat::NORMAL), m_capaciteSpeciale(capaciteSpe), m_multiplicateur(1), m_tpsRecuperation(0)
+Personnage::Personnage(string nom, string typePerso, const ConfigParser& cfgPerso, const ConfigParser& cfgArmes)
+{
+    m_nom = nom+" ("+typePerso+")";
+    m_pv = stoi(cfgPerso.getValeur(typePerso, "PV"));
+    m_bouclier = stoi(cfgPerso.getValeur(typePerso, "BOUCLIER"));
+    m_degats = stoi(cfgPerso.getValeur(typePerso, "DEGATS"));
+
+    string armeStr = cfgPerso.getValeur(typePerso, "ARME");
+    m_arme = Arme(armeStr, stoi(cfgArmes.getValeur(armeStr, "DEGATS")));
+
+    m_etat = Etat::NORMAL;
+    m_capaciteSpeciale = cfgPerso.getValeur(typePerso, "CAPACITE");
+    m_multiplicateur = stoi(cfgPerso.getValeur(typePerso, "MULTIPLICATEUR"));
+    m_paramTpsRecup= stoi(cfgPerso.getValeur(typePerso, "TPS_RECUPERATION"));
+    m_pourcentageReussite = stoi(cfgPerso.getValeur(typePerso, "POURCENTAGE_REUSSITE"));
+    m_tpsRecuperation = 0;
+}
+
+Personnage::Personnage(string nom, int pv, int bouclier, int degats, Arme arme, string capaciteSpe, int pourcentageReussite, int paramTpsRecup)
+    : m_nom(nom), 
+    m_pv(pv), 
+    m_bouclier(bouclier), 
+    m_degats(degats), 
+    m_arme(arme), 
+    m_etat(Etat::NORMAL), 
+    m_capaciteSpeciale(capaciteSpe),
+    m_multiplicateur(1), 
+    m_tpsRecuperation(0), 
+    m_paramTpsRecup(0), 
+    m_pourcentageReussite(0)
 {
 }
 
-const std::string Personnage::getNom()
+const string Personnage::getNom()
 {
     return m_nom;
 }
@@ -35,11 +63,12 @@ const Etat Personnage::getEtat()
     return m_etat;
 }
 
-const std::string Personnage::getNomCapacite()
+const string Personnage::getNomCapacite()
 {
     return m_capaciteSpeciale;
 }
 
+// fonction qui gère ce qui doit être fait à chaque tour (compteur ...)
 void Personnage::passeUnTour()
 {
     if(m_tpsRecuperation > 0)
@@ -59,10 +88,10 @@ void Personnage::attaquer(Personnage& cible)
 
         cible.recevoirDegats(degats);
 
-        std::cout << m_nom << " attaque et inflige " << degats << " degats." << std::endl;
+        cout << m_nom << " attaque et inflige " << degats << " degats." << endl;
         break;
     case Etat::ETOURDI:
-        std::cout << m_nom << " ne pas attaquer car il est étourdi." << std::endl;
+        cout << m_nom << " ne pas attaquer car il est etourdi." << endl;
         break;
     case Etat::EMPOISONNE:
         break;
@@ -98,18 +127,18 @@ void Personnage::capaciteSpeciale(Personnage& cible)
 {
     // Vérifier si la capacité spéciale peut être utilisée
     if (m_tpsRecuperation > 0) {
-        std::cout << "La capacite " << m_capaciteSpeciale << " est en attente. Attendez encore " << m_tpsRecuperation << " tours." << std::endl;
+        cout << "La capacite " << m_capaciteSpeciale << " est en attente. Attendez encore " << m_tpsRecuperation << " tours." << endl;
     }
     else {
         // Générer un nombre aléatoire entre 0 et 99 (pourcentage)
         int chanceReussite = rand() % 100;
 
-        if (chanceReussite < 60) {  // La capacité réussit avec 60% de chance
+        if (chanceReussite < m_pourcentageReussite) {  // La capacité réussit avec 60% de chance
             appliquerCapacite(cible);
         }
         else {
-            std::cout << "CATASTROPHE ! La capacite "<<m_capaciteSpeciale<<" a echoue." << std::endl;
-            m_tpsRecuperation = 3;
+            cout << "CATASTROPHE ! La capacite "<<m_capaciteSpeciale<<" a echoue." << endl;
+            m_tpsRecuperation = m_paramTpsRecup;
         }
     }
 }

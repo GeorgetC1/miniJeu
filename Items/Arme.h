@@ -12,6 +12,7 @@
 class Arme
 {
 public :
+	Arme();
 	Arme(std::string nom, int degats);
 	Arme(const Arme &armeCopie);
 	int getDegats();
