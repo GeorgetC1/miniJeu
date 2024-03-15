@@ -28,12 +28,15 @@ void afficherDetailPerso(ConfigParser& prPersos, ConfigParser& prArmes)
 // Fonction du déroulement des combats
 void combat(Joueur& joueur1, Joueur& joueur2)
 {
+	int tour = 1;
 	while (joueur1.estVivant() && joueur2.estVivant())
 	{
 		system("CLS");
 		cout << "####################################" << endl;
 		cout << "#              COMBAT              #" << endl;
 		cout << "####################################" << endl << endl;
+		cout << "               TOUR " << tour << endl << endl;
+		cout << "####################################" << endl;
 
 		// début tour / capacité spécial
 		joueur1.jouerTour(joueur2);
@@ -59,6 +62,8 @@ void combat(Joueur& joueur1, Joueur& joueur2)
 		// fin de tour 
 		joueur1.majPerso();
 		joueur2.majPerso();
+
+		tour++;
 	}
 }
 
@@ -84,9 +89,16 @@ void jouer(int nbrJoueur)
 {
 	// lecture des fichiers de paramétrages
 	ConfigParser paramArmes("paramArmes.txt");
-	paramArmes.parseFichier();
+	bool fichierArmesOk = paramArmes.parseFichier();
 	ConfigParser paramPersos("paramPersos.txt");
-	paramPersos.parseFichier();
+	bool fichierPersosOk = paramPersos.parseFichier();
+
+	if (!fichierArmesOk || !fichierPersosOk)
+	{
+		cout << endl << "Merci de verifier que votre fichier "<< (fichierArmesOk? "paramPersos.txt":"paramArmes.txt") << " est present et conforme.\nL'application va s'arreter." << endl << endl;
+		system("PAUSE");
+		exit(0);
+	}
 
 	// initialisation de var
 	string pseudoJoueur1, pseudoJoueur2;

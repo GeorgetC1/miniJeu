@@ -16,12 +16,12 @@ string ConfigParser::getValeur(const string& categorie, const string& cle, strin
     return defaut;
 }
 
-void ConfigParser::parseFichier()
+bool ConfigParser::parseFichier()
 {
     ifstream fichier(m_nomFichier);
     if (!fichier) {
         cerr << "Erreur lors de l'ouverture du fichier de configuration." << endl;
-        return;
+        return false;
     }
 
     string ligne;
@@ -43,4 +43,6 @@ void ConfigParser::parseFichier()
             }
         }
     }
+
+    return true;
 }
