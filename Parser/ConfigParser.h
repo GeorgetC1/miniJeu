@@ -18,7 +18,7 @@ public:
 	string getValeur(const string& categorie, const string& cle, string defaut="0") const;
 
 	// fonction lecture et parsing fichier
-	void parseFichier();
+	bool parseFichier();
 
 private:
 	string m_nomFichier;

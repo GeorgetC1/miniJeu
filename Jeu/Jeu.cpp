@@ -4,7 +4,9 @@ using namespace std;
 // fonction d'affichage des personnages et de leurs caractéristiques
 void afficherDetailPerso(ConfigParser& prPersos, ConfigParser& prArmes)
 {
-
+	cout << "####################################" << endl;
+	cout << "#     SELECTION DE PERSONNAGES     #" << endl;
+	cout << "####################################" << endl << endl;
 	const unordered_map<string, unordered_map<string, string>> persoMap = prPersos.getMap();
 	cout << "Les personnages disponibles :" << endl;
 	cout << "STATS" << endl;
@@ -25,17 +27,27 @@ void afficherDetailPerso(ConfigParser& prPersos, ConfigParser& prArmes)
 	}
 }
 
+void enteteCombat(int tour)
+{
+	system("CLS");
+	cout << "####################################" << endl;
+	cout << "#              COMBAT              #" << endl;
+	cout << "####################################" << endl << endl;
+	cout << "               TOUR " << tour << endl << endl;
+	cout << "####################################" << endl;
+}
+
 // Fonction du déroulement des combats
 void combat(Joueur& joueur1, Joueur& joueur2)
 {
+	int tour = 1;
 	while (joueur1.estVivant() && joueur2.estVivant())
 	{
-		system("CLS");
-		cout << "####################################" << endl;
-		cout << "#              COMBAT              #" << endl;
-		cout << "####################################" << endl << endl;
+
+		enteteCombat(tour);
 
 		// début tour / capacité spécial
+		cout << endl << "         UTILISER VOS COMPETENCES"<< endl << endl;
 		joueur1.jouerTour(joueur2);
 		joueur2.jouerTour(joueur1);
 
@@ -43,6 +55,8 @@ void combat(Joueur& joueur1, Joueur& joueur2)
 		cout << endl;
 
 		// combat
+		enteteCombat(tour);
+		cout << endl << "         COMBAT" << endl << endl;
 		joueur1.attaque(joueur2);
 		joueur2.attaque(joueur1);
 
@@ -50,6 +64,8 @@ void combat(Joueur& joueur1, Joueur& joueur2)
 		system("PAUSE");
 
 		// combat
+		enteteCombat(tour);
+		cout << endl << "         FIN DE TOUR" << endl << endl;
 		joueur1.afficheEtat();
 		joueur2.afficheEtat();
 
@@ -59,6 +75,8 @@ void combat(Joueur& joueur1, Joueur& joueur2)
 		// fin de tour 
 		joueur1.majPerso();
 		joueur2.majPerso();
+
+		tour++;
 	}
 }
 
@@ -66,6 +84,9 @@ void combat(Joueur& joueur1, Joueur& joueur2)
 void afficherVictoire(Joueur& joueur1, Joueur& joueur2)
 {
 	system("CLS");
+	cout << "####################################" << endl;
+	cout << "#           FIN DE PARTIE          #" << endl;
+	cout << "####################################" << endl << endl;
 	string gagnant;
 	if (joueur1.estVivant())
 		gagnant = joueur1.getPseudo();
@@ -84,9 +105,16 @@ void jouer(int nbrJoueur)
 {
 	// lecture des fichiers de paramétrages
 	ConfigParser paramArmes("paramArmes.txt");
-	paramArmes.parseFichier();
+	bool fichierArmesOk = paramArmes.parseFichier();
 	ConfigParser paramPersos("paramPersos.txt");
-	paramPersos.parseFichier();
+	bool fichierPersosOk = paramPersos.parseFichier();
+
+	if (!fichierArmesOk || !fichierPersosOk)
+	{
+		cout << endl << "Merci de verifier que votre fichier "<< (fichierArmesOk? "paramPersos.txt":"paramArmes.txt") << " est present et conforme.\nL'application va s'arreter." << endl << endl;
+		system("PAUSE");
+		exit(0);
+	}
 
 	// initialisation de var
 	string pseudoJoueur1, pseudoJoueur2;
